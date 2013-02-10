@@ -10,7 +10,6 @@ $config['template_layout'] = 'template/layout';
  * default css
  */
 $config['template_css'] = array(
-    '/assets/css/index.css' => 'screen'
 );
 
 /**
@@ -19,22 +18,20 @@ $config['template_css'] = array(
  * load javascript on footer: TRUE
  */
 $config['template_js'] = array(
-    'https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js' => FALSE,
-    '/assets/js/index.js' => TRUE
 );
 
 /**
  * default variable
  */
 $config['template_vars'] = array(
-    'site_description' => 'xxxx',
-    'site_keywords' => 'xxxx'
+    'site_description' => 'house',
+    'site_keywords' => 'house'
 );
 
 /**
  * default site title
  */
-$config['base_title'] = 'xxxxx';
+$config['base_title'] = 'house';
 
 /**
  * default title separator
