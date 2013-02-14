@@ -88,7 +88,7 @@ $config['charset'] = 'UTF-8';
 |--------------------------------------------------------------------------
 |
 | If you would like to use the 'hooks' feature you must enable it by
-| setting this variable to TRUE (boolean).  See the user guide for details.
+| setting this variable to TRUE (boolean) .  See the user guide for details.
 |
 */
 $config['enable_hooks'] = FALSE;
@@ -357,6 +357,14 @@ $config['rewrite_short_tags'] = FALSE;
 */
 $config['proxy_ips'] = '';
 
+/**
+ * Set namespacing for specific application in case
+ * user is using multiple applications run off of the same server.
+ *
+ * @var string
+ **/
+
+$config['app_name'] = 'myhouse';
 
 /* End of file config.php */
 /* Location: ./application/config/config.php */
