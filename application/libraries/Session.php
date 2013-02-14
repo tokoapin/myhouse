@@ -5,14 +5,14 @@
  * @package     Session
  * @subpackage  Libraries
  * @category    Session
- * @author      Topic Deisgn
- * @modified    Bo-Yi Wu <appleboy.tw@gmail.com>
- * @date        2012-03-16
+ * @author      Bo-Yi Wu (appleboy) <appleboy.tw@gmail.com>
+ * @author      Marko Martinović <marko@techytalk.info>
  */
 
 class Session
 {
-    protected $app_name = '';
+    protected $sess_namespace = '';
+    protected $sess_expiration = '';
     protected $ci;
     protected $store = array();
     protected $flashdata_key = 'flash';
@@ -23,16 +23,13 @@ class Session
      * @access  public
      * @param   array   config preferences
      *
-     * @return  void
+     * @return void
      **/
-
-    function __construct($config = array())
+    public function __construct($config = array())
     {
         $this->ci = get_instance();
-        $this->app_name = $this->ci->config->item('app_name');
 
-        if ( ! isset($_SESSION))
-        {
+        if ( ! isset($_SESSION)) {
             session_start();
         }
         $this->initialize($config);
@@ -49,26 +46,29 @@ class Session
      *
      * @access  private
      * @param   array   config options
-     * @return  void
+     * @return void
      */
      private function initialize($config)
      {
-        foreach ($config as $key => $val)
-        {
-            if (method_exists($this, 'set_'.$key))
-            {
+        $config = array_merge
+        (
+            array
+            (
+                'sess_namespace' => $this->ci->config->item('sess_namespace'),
+                'sess_expiration' => $this->ci->config->item('sess_expiration')
+            ),
+            $config
+        );
+        foreach ($config as $key => $val) {
+            if (method_exists($this, 'set_'.$key)) {
                 $this->{'set_'.$key}($val);
-            }
-            else if (isset($this->$key))
-            {
+            } elseif (isset($this->$key)) {
                 $this->$key = $val;
             }
         }
-        if(isset($_SESSION[$this->app_name]) )
-        {
-            $this->store = $_SESSION[$this->app_name];
-            if(! $this->is_expired())
-            {
+        if (isset($_SESSION[$this->sess_namespace]) ) {
+            $this->store = $_SESSION[$this->sess_namespace];
+            if (! $this->is_expired()) {
                 return;
             }
         }
@@ -79,28 +79,27 @@ class Session
      * Create Session
      *
      * @access  public
-     * @return  void
+     * @return void
      */
     public function sess_create()
     {
-        $expire_time = time() + intval($this->ci->config->item('sess_expiration'));
-        $_SESSION[$this->app_name] = array(
+        $expire_time = time() + intval($this->sess_expiration);
+        $_SESSION[$this->sess_namespace] = array(
             'session_id' => md5(microtime()),
             'expire_at' => $expire_time
         );
-        $this->store = $_SESSION[$this->app_name];
+        $this->store = $_SESSION[$this->sess_namespace];
     }
 
     /**
      * Check if session is expired
      *
      * @access  public
-     * @return  void
+     * @return void
      */
     public function is_expired()
     {
-        if ( ! isset($this->store['expire_at']))
-        {
+        if ( ! isset($this->store['expire_at'])) {
             return TRUE;
         }
         return (time() > $this->store['expire_at']);
@@ -121,20 +120,16 @@ class Session
      *
      * @access  public
      * @param   string  element key
-     * @return  object  element value
+     * @return object element value
      */
     public function userdata($value)
     {
-        if ($value == 'session_id')
-        {
+        if ($value == 'session_id') {
             return $this->store['session_id'];
         }
-        if (isset($this->store[$value]))
-        {
+        if (isset($this->store[$value])) {
             return $this->store[$value];
-        }
-        else
-        {
+        } else {
             return FALSE;
         }
     }
@@ -145,19 +140,17 @@ class Session
      * @access  public
      * @param   array  list of data to be stored
      * @param   object  value to be stored if only one element is passed
-     * @return  void
+     * @return void
      */
     public function set_userdata($data = array(), $value = '')
     {
-        if(is_string($data))
-        {
+        if (is_string($data)) {
             $data = array($data => $value);
         }
-        foreach ($data as $key => $val)
-        {
+        foreach ($data as $key => $val) {
             $this->store[$key] = $val;
         }
-        $_SESSION[$this->app_name] = $this->store;
+        $_SESSION[$this->sess_namespace] = $this->store;
     }
 
     /**
@@ -165,31 +158,28 @@ class Session
      *
      * @access  public
      * @param   array  list of data to be removed
-     * @return  void
+     * @return void
      */
     public function unset_userdata($data = array())
     {
-        if (is_string($data))
-        {
+        if (is_string($data)) {
             $data = array($data => '');
         }
 
-        if (count($data) > 0)
-        {
-            foreach ($data as $key => $val)
-            {
+        if (count($data) > 0) {
+            foreach ($data as $key => $val) {
                 unset($this->store[$key]);
             }
         }
 
-        $_SESSION[$this->app_name] = $this->store;
+        $_SESSION[$this->sess_namespace] = $this->store;
     }
 
     /**
      * Fetch all session data
      *
      * @access  public
-     * @return  array
+     * @return array
      */
     public function all_userdata()
     {
@@ -203,19 +193,16 @@ class Session
      * @access  public
      * @param   mixed
      * @param   string
-     * @return  void
+     * @return void
      */
     public function set_flashdata($newdata = array(), $newval = '')
     {
-        if (is_string($newdata))
-        {
+        if (is_string($newdata)) {
             $newdata = array($newdata => $newval);
         }
 
-        if (count($newdata) > 0)
-        {
-            foreach ($newdata as $key => $val)
-            {
+        if (count($newdata) > 0) {
+            foreach ($newdata as $key => $val) {
                 $flashdata_key = $this->flashdata_key.':new:'.$key;
                 $this->set_userdata($flashdata_key, $val);
             }
@@ -227,7 +214,7 @@ class Session
      *
      * @access  public
      * @param   string
-     * @return  void
+     * @return void
      */
     public function keep_flashdata($key)
     {
@@ -247,7 +234,7 @@ class Session
      *
      * @access  public
      * @param   string
-     * @return  string
+     * @return string
      */
     public function flashdata($key)
     {
@@ -260,16 +247,14 @@ class Session
      * when _flashdata_sweep() runs.
      *
      * @access  private
-     * @return  void
+     * @return void
      */
     private function _flashdata_mark()
     {
         $userdata = $this->all_userdata();
-        foreach ($userdata as $name => $value)
-        {
+        foreach ($userdata as $name => $value) {
             $parts = explode(':new:', $name);
-            if (is_array($parts) && count($parts) === 2)
-            {
+            if (is_array($parts) && count($parts) === 2) {
                 $new_name = $this->flashdata_key.':old:'.$parts[1];
                 $this->set_userdata($new_name, $value);
                 $this->unset_userdata($name);
@@ -281,15 +266,13 @@ class Session
      * Removes all flashdata marked as 'old'
      *
      * @access  private
-     * @return  void
+     * @return void
      */
     private function _flashdata_sweep()
     {
         $userdata = $this->all_userdata();
-        foreach ($userdata as $key => $value)
-        {
-            if (strpos($key, ':old:'))
-            {
+        foreach ($userdata as $key => $value) {
+            if (strpos($key, ':old:')) {
                 $this->unset_userdata($key);
             }
         }
