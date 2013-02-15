@@ -16,7 +16,7 @@
     <tbody>
         <?php foreach($rows as $row): ?>
         <tr>
-            <td><?php echo $row['id'];?></td>
+            <td><?php echo $row['uid'];?></td>
             <td><?php echo $row['title'];?></td>
             <td><?php echo $row['view_count'];?></td>
             <td><?php echo $row['phone_count'];?> 通</td>
@@ -24,7 +24,7 @@
             <td></td>
             <td><?php echo $row['question_count'];?></td>
             <td><?php echo $row['reply_count'];?></td>
-            <td><button class="btn btn-primary" type="button">管理物件</button></td>
+            <td><a class="btn btn-primary" href="/sale/edit/<?php echo $row['uid']?>">管理物件</a></td>
             <td><?php echo $_house_status[$row['status']];?></td>
         </tr>
         <?php endforeach;?>

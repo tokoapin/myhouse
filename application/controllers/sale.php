@@ -6,8 +6,8 @@ class Sale extends MY_Controller
     {
         parent::__construct();
         $this->load->library(array('lib_sale'));
-        $this->template->add_js('assets/js/libs/jquery/jquery.twzipcode-1.4.1.js', true);
-        $this->template->add_js('assets/js/sale.js', true);
+        $this->template->add_js('/assets/js/libs/jquery/jquery.twzipcode-1.4.1.js', true);
+        $this->template->add_js('/assets/js/sale.js', true);
     }
 
     public function index()
@@ -28,8 +28,18 @@ class Sale extends MY_Controller
             redirect('sale/lists');
         }
 
+        $item = $this->lib_sale->select('*')->where('uid', $this->db->escape_str($uid))->items()->row_array();
+
+        if (empty($item)) {
+            redirect('sale/lists');
+        }
+
+        if (!empty($item['facility_type'])) {
+            $item['facility_type'] = explode(',', $item['facility_type']);
+        }
+
         $data = array(
-            'item' => $this->lib_sale->select('*')->where('uid', $this->db->escape_str($uid))->items()->row_array(),
+            'item' => $item,
             'mode' => 'edit'
         );
 
@@ -47,6 +57,7 @@ class Sale extends MY_Controller
     public function save()
     {
         $facility_type = $this->input->post('facility_type', true);
+        $mode = $this->input->post('mode', true);
         if ( ! is_array($facility_type)) {
             $facility_type = array();
         }

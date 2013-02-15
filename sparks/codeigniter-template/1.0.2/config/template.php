@@ -20,9 +20,9 @@ $config['template_css'] = array(
  * load javascript on footer: TRUE
  */
 $config['template_js'] = array(
-    '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' => true,
-    '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js' => true,
-    '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js' => true
+    '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' => false,
+    '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js' => false,
+    '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js' => false
 );
 
 /**
