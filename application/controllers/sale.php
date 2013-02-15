@@ -9,11 +9,9 @@ class Sale extends MY_Controller
 
     public function index()
     {
-        $data = array(
-            'house_type' => $this->_house_type,
-            'car_type' => $this->_car_type,
-            'car_num' => $this->_car_num
-        );
+        $data = array();
+        $this->template->add_js('assets/js/libs/jquery/jquery.twzipcode-1.4.1.js', true);
+        $this->template->add_js('assets/js/sale.js', true);
         $this->template->render('sale/form', $data);
     }
 }

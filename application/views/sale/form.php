@@ -2,7 +2,7 @@
     <div class="control-group">
         <label class="control-label">房屋型態</label>
         <div class="controls">
-            <?php echo form_dropdown('house_type', $house_type);?>
+            <?php echo form_dropdown('house_type', $_house_type);?>
         </div>
     </div>
     <div class="control-group">
@@ -32,7 +32,7 @@
     <div class="control-group">
         <label class="control-label" for="inputPassword">車位</label>
         <div class="controls">
-            <?php echo form_dropdown('car_num', $car_num, null, 'class="input-small"');?>&nbsp;<?php echo form_dropdown('car_type', $car_type, null, 'class="input-small"');?>
+            <?php echo form_dropdown('car_num', $_car_num, null, 'class="input-small"');?>&nbsp;<?php echo form_dropdown('car_type', $_car_type, null, 'class="input-small"');?>
         </div>
     </div>
     <div class="control-group">
@@ -42,9 +42,9 @@
         </div>
     </div>
     <div class="control-group">
-        <label class="control-label" for="inputPassword">社區建案</label>
+        <label class="control-label" for="inputPassword">地址</label>
         <div class="controls">
-            <input type="text" placeholder="若無社區建案可不必填寫">
+            <div id="container"></div><input type="text" placeholder="門牌號碼" class="input-mini">
         </div>
     </div>
     <div class="control-group">
@@ -65,8 +65,8 @@
             <?php
             foreach($_facility_type as $k => $v):
                 $data = array(
-                    'name'        => 'facility_type[]',
-                    'value'       => $k
+                    'name' => 'facility_type[]',
+                    'value' => $k
                 );
                 echo form_checkbox($data) . "&nbsp;" . $v;
             ?>
@@ -83,6 +83,30 @@
         <label class="control-label" for="inputPassword">帶租約</label>
         <div class="controls">
             <input type="radio" name="is_contract" value="1">有&nbsp;<input type="radio" name="is_contract" value="0" checked>無
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputPassword">刊登狀態</label>
+        <div class="controls">
+            <input type="radio" name="is_submit" value="1" checked>直接刊登&nbsp;<input type="radio" name="is_submit" value="0">預約刊登時間: <input type="text" id="datepicker" />
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputPassword">聯絡人</label>
+        <div class="controls">
+            <?php echo form_dropdown('house_agent', $_house_agent, null, 'class="input-small"');?>&nbsp;<input type="text" name="agent" />先生/小姐&nbsp;<input type="checkbox"> 屋主聲名仲介誤擾
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputPassword">聯絡電話</label>
+        <div class="controls">
+            <input type="text" placeholder="聯絡電話">
+        </div>
+    </div>
+    <div class="control-group">
+        <label class="control-label" for="inputPassword">特色說明</label>
+        <div class="controls">
+            <textarea name="description" rows="6"></textarea>
         </div>
     </div>
     <div class="control-group">

@@ -10,7 +10,8 @@ $config['template_layout'] = 'template/layout';
  * default css
  */
 $config['template_css'] = array(
-    'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css' => 'screen'
+    'http://netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css' => 'screen',
+    'http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.0/themes/ui-darkness/jquery-ui.css' => 'screen'
 );
 
 /**

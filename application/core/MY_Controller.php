@@ -95,11 +95,17 @@ class MY_Controller extends CI_Controller
             '平面',
             '機械'
         );
+        $this->_house_agent = array(
+            '屋主',
+            '代理人',
+            '仲介'
+        );
         $this->template->set('_house_type', $this->_house_type);
         $this->template->set('_decorating_type', $this->_decorating_type);
         $this->template->set('_facility_type', $this->_facility_type);
         $this->template->set('_car_num', $this->_car_num);
         $this->template->set('_car_type', $this->_car_type);
+        $this->template->set('_house_agent', $this->_house_agent);
         // load controller css
         $css_file_path = 'assets/css/'.$this->router->class.'.css';
         if (file_exists($css_file_path)) {
