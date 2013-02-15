@@ -29,7 +29,7 @@ class MY_Controller extends CI_Controller
         parent::__construct();
         // load native session
         $this->load->library(array('session'));
-        $this->load->helper('form');
+        $this->load->helper(array('form', 'url'));
         // load template library
         $this->load->spark('codeigniter-template/1.0.2');
 
@@ -72,6 +72,12 @@ class MY_Controller extends CI_Controller
             '辦公室',
             '其它'
         );
+        $this->_house_status = array(
+            '開啟中',
+            '未開啟',
+            '暫時關閉',
+            '已成交'
+        );
         $this->_decorating_type = array(
             '尚未裝潢',
             '簡易裝潢',
@@ -95,7 +101,7 @@ class MY_Controller extends CI_Controller
             '平面',
             '機械'
         );
-        $this->_house_agent = array(
+        $this->_agent_type = array(
             '屋主',
             '代理人',
             '仲介'
@@ -105,7 +111,8 @@ class MY_Controller extends CI_Controller
         $this->template->set('_facility_type', $this->_facility_type);
         $this->template->set('_car_num', $this->_car_num);
         $this->template->set('_car_type', $this->_car_type);
-        $this->template->set('_house_agent', $this->_house_agent);
+        $this->template->set('_agent_type', $this->_agent_type);
+        $this->template->set('_house_status', $this->_house_status);
         // load controller css
         $css_file_path = 'assets/css/'.$this->router->class.'.css';
         if (file_exists($css_file_path)) {
