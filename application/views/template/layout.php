@@ -13,7 +13,6 @@
 <meta name="keywords" content="<?php echo $site_keywords; ?>" />
 <?php echo $meta_tag; ?>
 <?php echo $styles; ?>
-<link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/css/bootstrap-combined.min.css" rel="stylesheet">
 <!-- JS -->
 <?php echo $scripts_header; ?>
 </head>
@@ -21,9 +20,6 @@
     <div id="content">
         <?php echo $content; ?>
     </div>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"></script>
-    <script src="//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js"></script>
     <?php echo $scripts_footer; ?>
 </body>
 </html>
