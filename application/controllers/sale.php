@@ -46,7 +46,12 @@ class Sale extends MY_Controller
 
     public function save()
     {
+        $facility_type = $this->input->post('facility_type', true);
+        if ( ! is_array($facility_type)) {
+            $facility_type = array();
+        }
         $data = array(
+            'uid' => 'S' . $this->system->generate_code('6', 'digit'),
             'type' => $this->input->post('type', true),
             'title' => $this->input->post('title', true),
             'price' => $this->input->post('price', true),
@@ -75,7 +80,7 @@ class Sale extends MY_Controller
             'manager_price' => $this->input->post('manager_price', true),
             'position' => $this->input->post('position', true),
             'decorating_type' => $this->input->post('decorating_type', true),
-            'facility_type' => implode(',', $this->input->post('facility_type', true)),
+            'facility_type' => implode(',', $facility_type),
             'is_lease' => $this->input->post('is_lease', true),
             'traffic' => $this->input->post('traffic', true),
             'is_submit' => $this->input->post('is_submit', true),

@@ -28,7 +28,7 @@ class MY_Controller extends CI_Controller
     {
         parent::__construct();
         // load native session
-        $this->load->library(array('session'));
+        $this->load->library(array('session', 'system'));
         $this->load->helper(array('form', 'url'));
         // load template library
         $this->load->spark('codeigniter-template/1.0.2');
