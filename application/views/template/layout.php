@@ -17,9 +17,20 @@
 <?php echo $scripts_header; ?>
 </head>
 <body>
+<div class="container">
+    <div class="navbar">
+        <div class="navbar-inner">
+            <a class="brand" href="#">House</a>
+            <ul class="nav">
+                <li <?php if($method == 'sale/lists'): ?>class="active"<?php endif; ?>><a href="/sale/lists">個人物件</a></li>
+                <li <?php if($method == 'sale/add'): ?>class="active"<?php endif; ?>><a href="/sale/add">新增物件</a></li>
+            </ul>
+        </div>
+    </div>
     <div id="content">
         <?php echo $content; ?>
     </div>
-    <?php echo $scripts_footer; ?>
+</div>
+<?php echo $scripts_footer; ?>
 </body>
 </html>

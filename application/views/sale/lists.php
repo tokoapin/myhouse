@@ -1,17 +1,17 @@
 <table class="table table-condensed">
-<thead>
-    <tr>
-        <th>物件編號</th>
-        <th>物件標題</th>
-        <th>瀏覽</th>
-        <th>電話</th>
-        <th>收藏</th>
-        <th>剩餘時間</th>
-        <th>問題</th>
-        <th>待回覆</th>
-        <th>管理</th>
-        <th>狀態</th>
-    </tr>
+    <thead>
+        <tr>
+            <th>物件編號</th>
+            <th>物件標題</th>
+            <th>瀏覽</th>
+            <th>電話</th>
+            <th>收藏</th>
+            <th>剩餘時間</th>
+            <th>問題</th>
+            <th>待回覆</th>
+            <th>管理</th>
+            <th>狀態</th>
+        </tr>
     </thead>
     <tbody>
         <?php foreach($rows as $row): ?>

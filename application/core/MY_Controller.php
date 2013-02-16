@@ -52,9 +52,11 @@ class MY_Controller extends CI_Controller
     {
         $ctrl = $this->router->class;
         $action = $this->router->method;
+        $method = $this->router->class . '/' . $this->router->method;
 
         $this->template->set('ctrl', $ctrl);
         $this->template->set('action', $action);
+        $this->template->set('method', $method);
     }
 
     /*

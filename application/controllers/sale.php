@@ -7,7 +7,6 @@ class Sale extends MY_Controller
         parent::__construct();
         $this->load->library(array('lib_sale'));
         $this->template->add_js('/assets/js/libs/jquery/jquery.twzipcode-1.4.1.js', true);
-        $this->template->add_js('/assets/js/sale.js', true);
     }
 
     public function index()
@@ -19,6 +18,7 @@ class Sale extends MY_Controller
     public function add()
     {
         $data = array('mode' => 'add');
+        $this->template->add_js('/assets/js/sale.js', true);
         $this->template->render('sale/form', $data);
     }
 
@@ -43,6 +43,7 @@ class Sale extends MY_Controller
             'mode' => 'edit'
         );
 
+        $this->template->add_js('/assets/js/sale.js', true);
         $this->template->render('sale/form', $data);
     }
 
