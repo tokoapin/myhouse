@@ -50,7 +50,7 @@ class Sale extends MY_Controller
     public function lists()
     {
         $data = array(
-            'rows' => $this->lib_sale->select('*')->items()->result_array(),
+            'rows' => $this->lib_sale->select('*')->where('user_id', $this->session->userdata('user_id'))->items()->result_array(),
         );
         $this->template->render('sale/lists', $data);
     }
