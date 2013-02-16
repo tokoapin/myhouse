@@ -56,13 +56,14 @@ class Sale extends MY_Controller
 
     public function save()
     {
-        $facility_type = $this->input->post('facility_type', true);
         $mode = $this->input->post('mode', true);
+        $facility_type = $this->input->post('facility_type', true);
+
         if ( ! is_array($facility_type)) {
             $facility_type = array();
         }
+
         $data = array(
-            'uid' => 'S' . $this->system->generate_code('6', 'digit'),
             'type' => $this->input->post('type', true),
             'title' => $this->input->post('title', true),
             'price' => $this->input->post('price', true),
@@ -103,8 +104,29 @@ class Sale extends MY_Controller
             'description' => $this->input->post('description', true)
         );
 
-        $this->lib_sale->insert($data);
-        redirect('sale/add');
+        switch ($mode) {
+            case 'add':
+                $another = array(
+                    'uid' => 'S' . $this->system->generate_code('6', 'digit'),
+                    'user_id' => $this->session->userdata('user_id')
+                );
+
+                $data = array_merge($another, $data);
+                $this->lib_sale->insert($data);
+            break;
+            case 'edit':
+                $uid = $this->input->post('uid', true);
+                $item = $this->lib_sale->select('*')->where('uid', $this->db->escape_str($uid))->items()->row_array();
+
+                if (empty($item) or $this->session->userdata('user_id') != $item['user_id']) {
+                    redirect('sale/lists');
+                }
+
+                $this->lib_sale->update($item['id'], $data);
+            break;
+        }
+
+        redirect('sale/lists');
     }
 }
 

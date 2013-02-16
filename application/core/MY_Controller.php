@@ -118,6 +118,16 @@ class MY_Controller extends CI_Controller
         if (file_exists($css_file_path)) {
             $this->template->add_css($css_file_path);
         }
+
+        // session data
+        $user = array(
+            'user_id' => 1,
+            'username' => 'appleboy',
+            'groups' => array('User', 'Admin'),
+            'is_loggin' => true
+        );
+
+        $this->session->set_userdata($user);
     }
 
 }

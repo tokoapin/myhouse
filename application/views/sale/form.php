@@ -117,6 +117,9 @@
                 <input type="checkbox"> 我已詳細閱讀刊登規則
             </label>
             <?php endif;?>
+            <?php if ($mode == 'edit'): ?>
+            <input type="hidden" name="uid" value="<?php echo $item['uid']; ?>">
+            <?php endif?>
             <input type="hidden" name="mode" value="<?php echo $mode; ?>">
             <button type="submit" class="btn">確認送出</button>
         </div>
