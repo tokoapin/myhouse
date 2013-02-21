@@ -1,17 +1,19 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Register extends CI_Controller {
+class Register extends MY_Controller {
 	public function __construct()
 	{
 		parent::__construct();
 		$this->load->model('Register_model');
+		$this->template->add_css('/assets/css/jquery-ui-themes/blitzer/jquery-ui-1.10.0.custom.css');
 	}
 
 	public function index()
 	{
 		$data["title"] = "Welcome to Sweet House";
 		$this->load->helper('form');
-		$this->load->view('register_view', $data);
+		$this->template->add_js('/assets/js/libs/jquery-validation-1.11/jquery.validate.js');
+        $this->template->render('register/register_view', $data);
 	}
 
 	public function registerUser()
@@ -41,7 +43,7 @@ class Register extends CI_Controller {
 		
 		if ( $this->form_validation->run() == FALSE )
 		{
-			$this->load->view('error_view');
+			$this->load->view('register/error_view');
 			return;
 		}
 		
@@ -57,14 +59,14 @@ class Register extends CI_Controller {
 		$ret = $this->Register_model->insertNewUser($dbData);
 		$new_id = null;
 		if($ret == FALSE) {
-			$this->load->view('error_view', array("message" => "Failed insertNewUser." ));
+			$this->load->view('register/error_view', array("message" => "Failed insertNewUser." ));
 			return;
 		} else {
 			$new_id = $this->db->insert_id();
 		}
 
 		if(empty($new_id)) {
-			$this->load->view('error_view', array("message" => "New inserted Id is 0. Should never happen.! "));
+			$this->load->view('register/error_view', array("message" => "New inserted Id is 0. Should never happen.! "));
 			return;
 		}
 
@@ -92,11 +94,11 @@ class Register extends CI_Controller {
 		}
 
 		if($ret == FALSE) {
-			$this->load->view('error_view', array("message" => "Failed insertAgentInfo or insertOrganizationInfo." ));
+			$this->load->view('register/error_view', array("message" => "Failed insertAgentInfo or insertOrganizationInfo." ));
 			return;
 		}
 		
-		$this->load->view('success_view', array("message" => "Congratulations. You have successfuly registered. ~!"));
+		$this->load->view('register/success_view', array("message" => "Congratulations. You have successfuly registered. ~!"));
 	}
 
 	/*	
@@ -139,12 +141,14 @@ class Register extends CI_Controller {
 		$code = rand(100000, 999999);
 		$this->Register_model->insertVerifyData(array("code" => $code, "phone" => $phone));
 		// send sms via Nexmo
+/*
 		$response = $this->nexmoSendSms($phone, $code);
 		if($response["result"] != "ok") {
 			$data = array("result" => "send_sms_error", "message" => $response["message"]);
 			echo json_encode($data);
 			exit(); //important, otherwise it will print any html in this page
 		}
+*/
 		$data = array("result" => "ok");
 		echo json_encode($data);
 		exit(); //important, otherwise it will print any html in this page
