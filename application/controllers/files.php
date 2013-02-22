@@ -62,7 +62,7 @@ class Files extends MY_Controller
             return;
         }
 
-        $filename = $image['raw_name'] . $image['file_ext'];
+        $filename = $image['raw_name'] . $image['ext'];
         $filepath = $this->_upload_path . $filename;
 
         $size = $this->config->item('image_size');
@@ -153,7 +153,7 @@ class Files extends MY_Controller
         $id = (int) $id;
         $row = $this->lib_files->get_file($id);
 
-        $path = $this->_upload_path . $row['file_name'];
+        $path = $this->_upload_path . $row['name'];
 
         if (!file_exists($path)) {
             header("Location:" . $this->config->site_url());
@@ -178,7 +178,7 @@ class Files extends MY_Controller
                 break;
                 case "update":
                     $id = intval($this->input->post('id'));
-                    $name = $this->input->post('file_name', TRUE);
+                    $name = $this->input->post('name', TRUE);
                     $data = array(
                         "alias_name" => $name
                     );

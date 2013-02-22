@@ -34,16 +34,16 @@ class Lib_files
     public function upload($data = array())
     {
         $data = array(
-                "file_name" => (string) $data['file_name'],
-                "file_ext" => (string) strtolower($data['file_ext']),
-                "file_path" => (string) $this->_upload_path,
-                "file_size" => (string) $data['file_size'],
-                "file_type" => (string) $data['file_type'],
-                "orig_name" => (string) $data['orig_name'],
-                "raw_name" => (string) $data['raw_name'],
-                "image_height" => (int) $data['image_height'],
-                "image_width" => (int) $data['image_width'],
-                "is_image" => (int) $data['is_image']
+            'name' => (string) $data['name'],
+            'ext' => (string) strtolower($data['ext']),
+            'path' => (string) $this->_upload_path,
+            'size' => (string) $data['size'],
+            'type' => (string) $data['type'],
+            'orig_name' => (string) $data['orig_name'],
+            'raw_name' => (string) $data['raw_name'],
+            'image_height' => (int) $data['image_height'],
+            'image_width' => (int) $data['image_width'],
+            'is_image' => (int) $data['is_image']
         );
         $id = $this->_ci->files_model->insert($data);
         return $id;
@@ -52,11 +52,11 @@ class Lib_files
     public function process_upload_files()
     {
         // process upload data
-        if ( ! $this->_ci->input->post('file_id')) {
+        if ( ! $this->_ci->input->post('id')) {
             $file_list = "";
         } else {
-            if (is_array($this->_ci->input->post('file_id'))) {
-                $file_list = implode(",", $this->_ci->input->post('file_id'));
+            if (is_array($this->_ci->input->post('id'))) {
+                $file_list = implode(",", $this->_ci->input->post('id'));
             }
         }
         return $file_list;
@@ -102,7 +102,7 @@ class Lib_files
                 $result_html = '<ul id="file_list" ' . $show . '>';
                 foreach ($result as $row) {
                     $file_name = (empty($row['alias_name'])) ? $row['orig_name'] : $row['alias_name'];
-                    $html[$file_list_array[$row['file_id']]] = '<li class="list"><input type="checkbox" name="file_id[]" value="' . $row['file_id'] . '" checked>&nbsp;&nbsp;<img src="http://techpromot.ccu.edu.tw/images/icon/Download.png">&nbsp;<span file_id="' . $row['file_id'] . '" class="file_name">' . $file_name . '</span>&nbsp;&nbsp;<div style="float:right"><button type="button" class="blue-button" onclick="location.href=\'/files/download/' . $row['file_id'] . '\'">下載</button>&nbsp;<button type="button" file_id="' . $row['file_id'] . '" class="red-button delete_file">刪除</button></div></li>';
+                    $html[$file_list_array[$row['id']]] = '<li class="list"><input type="checkbox" name="id[]" value="' . $row['id'] . '" checked>&nbsp;&nbsp;<img src="http://techpromot.ccu.edu.tw/images/icon/Download.png">&nbsp;<span file_id="' . $row['id'] . '" class="name">' . $file_name . '</span>&nbsp;&nbsp;<div style="float:right"><button type="button" class="blue-button" onclick="location.href=\'/files/download/' . $row['id'] . '\'">下載</button>&nbsp;<button type="button" file_id="' . $row['id'] . '" class="red-button delete_file">刪除</button></div></li>';
                 }
                 // sort file
                 ksort($html);
@@ -120,11 +120,11 @@ class Lib_files
                 $result_html .= '</tr>';
                 foreach ($result as $row) {
                     $file_name = (empty($row['alias_name'])) ? $row['orig_name'] : $row['alias_name'];
-                    $html[$file_list_array[$row['file_id']]] = '<tr>';
-                    $html[$file_list_array[$row['file_id']]] .= '<td><input type="checkbox" name="file_id[]" value="' . $row['file_id'] . '" checked></td>';
-                    $html[$file_list_array[$row['file_id']]] .= '<td style="text-align:left;"><img style="vertical-align: middle;" src="http://techpromot.ccu.edu.tw/images/icon/Download.png">&nbsp;<span file_id="' . $row['file_id'] . '" class="file_name">' . $file_name . '</span></td>';
-                    $html[$file_list_array[$row['file_id']]] .= '<td><button type="button" class="blue-button" onclick="location.href=\'/files/download/' . $row['file_id'] . '\'">下載</button>&nbsp;<button type="button" file_id="' . $row['file_id'] . '" class="red-button delete_file">刪除</button></td>';
-                    $html[$file_list_array[$row['file_id']]] .= '</tr>';
+                    $html[$file_list_array[$row['id']]] = '<tr>';
+                    $html[$file_list_array[$row['id']]] .= '<td><input type="checkbox" name="id[]" value="' . $row['id'] . '" checked></td>';
+                    $html[$file_list_array[$row['id']]] .= '<td style="text-align:left;"><img style="vertical-align: middle;" src="http://techpromot.ccu.edu.tw/images/icon/Download.png">&nbsp;<span file_id="' . $row['id'] . '" class="name">' . $file_name . '</span></td>';
+                    $html[$file_list_array[$row['id']]] .= '<td><button type="button" class="blue-button" onclick="location.href=\'/files/download/' . $row['id'] . '\'">下載</button>&nbsp;<button type="button" file_id="' . $row['id'] . '" class="red-button delete_file">刪除</button></td>';
+                    $html[$file_list_array[$row['id']]] .= '</tr>';
                 }
                 // sort file
                 ksort($html);
@@ -137,7 +137,7 @@ class Lib_files
                 $result_html = '<div id="file_list" class="media-grid" ' . $show . '>';
                 foreach ($result as $row) {
                     $file_name = (empty($row['alias_name'])) ? $row['orig_name'] : $row['alias_name'];
-                    $html[$file_list_array[$row['file_id']]] = '<div class="thumbnail"><a rel="group" href="/files/get/' . $row['file_name'] . '/600/400/"><img alt="" src="/files/get/' . $row['file_name'] . '/100/100"></a><br /><input type="checkbox" name="file_id[]" value="' . $row['file_id'] . '" checked><button type="button" file_id="' . $row['file_id'] . '" class="red-button cover_file">封面</button></div>';
+                    $html[$file_list_array[$row['id']]] = '<div class="thumbnail"><a rel="group" href="/files/get/' . $row['name'] . '/600/400/"><img alt="" src="/files/get/' . $row['name'] . '/100/100"></a><br /><input type="checkbox" name="id[]" value="' . $row['id'] . '" checked><button type="button" file_id="' . $row['id'] . '" class="red-button cover_file">封面</button></div>';
                 }
                 // sort file
                 ksort($html);
@@ -151,9 +151,9 @@ class Lib_files
                 $file_array = array();
                 foreach ($result as $row) {
                     if ($row['is_image']) {
-                        $image_array[$file_list_array[$row['file_id']]] = $row;
+                        $image_array[$file_list_array[$row['id']]] = $row;
                     } else {
-                        $file_array[$file_list_array[$row['file_id']]] = $row;
+                        $file_array[$file_list_array[$row['id']]] = $row;
                     }
                 }
                 // sort array
