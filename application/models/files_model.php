@@ -1,107 +1,49 @@
 <?php
-/*
+
+/**
  * Files Model
  * Author: Bo-Yi Wu <appleboy.tw@gmail.com>
- * Date: 2012-04-14
  */
 
 class Files_model extends MY_Model
 {
-    protected $_table = "files";
     protected $_category_table = "files_category";
-    protected $_category_table_id = "id";
-    protected $_id = "file_id";
+    protected $_category_table_key = "id";
     protected $_upload_path = "./upload/";
 
     public function __construct()
     {
         parent::__construct();
-        $this->tables['file']    = 'files';
+        $this->tables['master'] = FILE_TABLE;
         $this->_time = time();
-    }
-
-    /**
-     * files
-     *
-     * @return object Categories
-     * @author appleboy
-     **/
-    public function files()
-    {
-        // define in MY_Model
-        $this->handle_process();
-
-        $this->response = $this->db->get($this->tables['file']);
-
-        return $this;
-    }
-
-    /**
-     * file
-     *
-     * @return object
-     * @author appleboy
-     **/
-    public function file($id = NULL)
-    {
-        $this->limit(1);
-        $this->where($this->tables['file'].'.id', $id);
-
-        $this->files();
-
-        return $this;
-    }
-
-    /**
-     * Add file
-     *
-     * @return int
-     * @author appleboy
-     **/
-    public function insert($data = array())
-    {
-        if(empty($data))
-
-            return false;
-
-        $another = array(
-            'add_time'   => time(),
-            'edit_time'  => time()
-        );
-        $data = array_merge($data, $another);
-
-        $this->db->insert($this->tables['file'], $data);
-        $id = $this->db->insert_id();
-
-        return $id;
     }
 
     public function delete($id = 0)
     {
-        if (is_array($id) AND !empty($id)) {
-            $result = $this->where('file_id', $id)->files()->result_array();
+        if (is_array($id) and !empty($id)) {
+            $result = $this->where($this->_key, $id)->files()->result_array();
             foreach ($result as $row) {
                 $this->delete_file($row['file_name']);
             }
-            $this->db->where_in($this->_id, $id);
-            $this->db->delete($this->_table);
+            $this->db->where_in($this->_key, $id);
+            $this->db->delete($this->tables['master']);
         } else {
             $id = intval($id);
-            $row = $this->where('file_id', $id)->files()->row_array();
+            $row = $this->where($this->_key, $id)->files()->row_array();
             // if data exist, delete file.
             if(!empty($row))
                 $this->delete_file($row['file_name']);
 
-            $this->db->where($this->_id, $id);
-            $this->db->delete($this->_table);
+            $this->db->where($this->_key, $id);
+            $this->db->delete($this->tables['master']);
         }
     }
 
     private function delete_file($filename = NULL)
     {
-        if(!isset($filename))
-
-            return FALSE;
+        if (!isset($filename)) {
+            return false;
+        }
 
         $path = $this->_upload_path . $filename;
 
@@ -109,33 +51,25 @@ class Files_model extends MY_Model
             @unlink($path);
         }
 
-        return TRUE;
-    }
-
-    public function update($id, $data = array())
-    {
-        $id = intval($id);
-        $data['edit_time'] = $this->_time;
-        $this->db->where($this->_id, $id);
-        $this->db->update($this->_table, $data);
+        return true;
     }
 
     public function update_file_list($id, $data = array())
     {
         $id = intval($id);
         $data['edit_time'] = $this->_time;
-        $this->db->where('category_id', $id);
+        $this->db->where('category_key', $id);
         $this->db->update($this->_category_table, $data);
     }
 
     public function update_view($id)
     {
         $id = intval($id);
-        $data['edit_time'] = $this->_time;
-        $this->db->set('download', 'download+1', FALSE);
-        $this->db->where($this->_id, $id);
-        $this->db->update($this->_table, $data);
+        $this->db->set('download', 'download+1', false);
+        $this->db->where($this->_key, $id);
+        $this->db->update($this->tables['master'], $data);
     }
 }
+
 /* End of file files_model.php */
 /* Location: ./application/models/files_model.php */
