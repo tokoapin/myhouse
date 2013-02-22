@@ -8,7 +8,7 @@ class Files extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library(array('files_lib', 'image_lib'));
+        $this->load->library(array('lib_files', 'image_lib'));
         $this->load->helper(array('url', 'form', 'download'));
         $this->load->config('images');
 
@@ -48,7 +48,7 @@ class Files extends MY_Controller
             $this->data['error'] = $this->upload->display_errors('<div class="form-msg-warning">', '<a class="close">x</a></div>');
         } else {
             $this->data['upload_data'] = $this->upload->data();
-            $this->data['upload_data']['id'] = $this->files_lib->upload($this->upload->data());
+            $this->data['upload_data']['id'] = $this->lib_files->upload($this->upload->data());
             (!empty($type)) and $this->image_resize($this->upload->data(), $type);
         }
 
@@ -151,7 +151,7 @@ class Files extends MY_Controller
     public function download($id = 0)
     {
         $id = (int) $id;
-        $row = $this->files_lib->get_file($id);
+        $row = $this->lib_files->get_file($id);
 
         $path = $this->_upload_path . $row['file_name'];
 
@@ -162,7 +162,7 @@ class Files extends MY_Controller
         $orig_name = $row['orig_name'];
 
         // update view count
-        $this->files_lib->update_view($id);
+        $this->lib_files->update_view($id);
         force_download($orig_name, $data);
     }
 
@@ -174,7 +174,7 @@ class Files extends MY_Controller
             switch ($mode) {
                 case "delete":
                     $id = intval($this->input->post('id'));
-                    $this->files_lib->delete($id);
+                    $this->lib_files->delete($id);
                 break;
                 case "update":
                     $id = intval($this->input->post('id'));
@@ -182,13 +182,13 @@ class Files extends MY_Controller
                     $data = array(
                         "alias_name" => $name
                     );
-                    $this->files_lib->update($id, $data);
+                    $this->lib_files->update($id, $data);
                 break;
                 case 'get_file_list':
                     $id = intval($this->input->post('id'));
                     $group_mode = $this->input->post('group_mode') ? $this->input->post('group_mode') : 'ul';
-                    $file_list = $this->files_lib->select_file_list($id);
-                    $response = (!empty($file_list)) ? $this->files_lib->get_files($file_list, $group_mode) : $this->files_lib->get_files(NULL, $group_mode);
+                    $file_list = $this->lib_files->select_file_list($id);
+                    $response = (!empty($file_list)) ? $this->lib_files->get_files($file_list, $group_mode) : $this->lib_files->get_files(NULL, $group_mode);
                     echo $response;
                 break;
             }
