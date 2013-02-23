@@ -174,6 +174,12 @@ class Files extends MY_Controller
             switch ($mode) {
                 case "delete":
                     $id = intval($this->input->post('id'));
+                    $row = $this->lib_files->select('user_id')->item($id)->row_array();
+                    if ($row['user_id'] != $this->session->userdata('user_id')) {
+                        $data = array("error_text" => "You don't have permission access it.");
+                        echo json_encode($data);
+                        exit();
+                    }
                     $this->lib_files->delete($id);
                 break;
                 case "update":
@@ -194,6 +200,7 @@ class Files extends MY_Controller
             }
             $data = array("success_text" => "ok");
             echo json_encode($data);
+            exit();
         }
     }
 }
