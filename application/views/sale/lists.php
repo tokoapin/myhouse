@@ -14,14 +14,24 @@
         </tr>
     </thead>
     <tbody>
-        <?php foreach($rows as $row): ?>
+        <?php
+            foreach($rows as $row):
+                $end_time = $row['add_time'] + 30*86400;
+                if ($end_time < time()) {
+                    $leave_time = '結束物件';
+                } else {
+                    $day = intval(($end_time - time())/86400);
+                    $hour = intval(($end_time - time())%86400/3600);
+                    $leave_time = sprintf('%s天%sH', $day, $hour);
+                }
+        ?>
         <tr>
             <td><?php echo $row['uid'];?></td>
             <td><?php echo $row['title'];?></td>
             <td><?php echo $row['view_count'];?></td>
             <td><?php echo $row['phone_count'];?> 通</td>
             <td><?php echo $row['favorite_count'];?></td>
-            <td></td>
+            <td><?php echo $leave_time; ?></td>
             <td><?php echo $row['question_count'];?></td>
             <td><?php echo $row['reply_count'];?></td>
             <td><a class="btn btn-primary" href="/sale/edit/<?php echo $row['uid']?>">管理物件</a></td>
