@@ -54,13 +54,12 @@ class Lib_files
     public function process_upload_files()
     {
         // process upload data
-        if ( ! $this->_ci->input->post('id')) {
-            $file_list = "";
-        } else {
-            if (is_array($this->_ci->input->post('id'))) {
-                $file_list = implode(",", $this->_ci->input->post('id'));
-            }
+        $file_list = "";
+
+        if (is_array($this->_ci->input->post('id'))) {
+            $file_list = implode(",", $this->_ci->input->post('id'));
         }
+
         return $file_list;
     }
 

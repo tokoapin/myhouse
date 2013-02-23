@@ -27,6 +27,29 @@
             }
         }
     });
+    $(document).on('click', '.delete_file', function(e){
+        var self = this;
+        e.preventDefault();
+        var id = $(self).data("id");
+        if (confirm("確定刪除資料?")) {
+            $.ajax({
+                url: '/files/ajax',
+                dataType: 'json',
+                type: 'POST',
+                data: {
+                    'id': id,
+                    'mode': 'delete'
+                },
+                success: function(response) {
+                    if (response.success_text) {
+                        $(self).parent().fadeOut("slow", function() {
+                            $(self).remove();
+                        });
+                    }
+                }
+            });
+        }
+    });
     $(".thumbnails").sortable();
     $(".thumbnails").disableSelection();
 }(jQuery));

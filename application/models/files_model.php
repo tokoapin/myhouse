@@ -21,18 +21,18 @@ class Files_model extends MY_Model
     public function delete($id = 0)
     {
         if (is_array($id) and !empty($id)) {
-            $result = $this->where($this->_key, $id)->files()->result_array();
+            $result = $this->where($this->_key, $id)->items()->result_array();
             foreach ($result as $row) {
-                $this->delete_file($row['file_name']);
+                $this->delete_file($row['name']);
             }
             $this->db->where_in($this->_key, $id);
             $this->db->delete($this->tables['master']);
         } else {
             $id = intval($id);
-            $row = $this->where($this->_key, $id)->files()->row_array();
+            $row = $this->item($id)->row_array();
             // if data exist, delete file.
             if(!empty($row))
-                $this->delete_file($row['file_name']);
+                $this->delete_file($row['name']);
 
             $this->db->where($this->_key, $id);
             $this->db->delete($this->tables['master']);

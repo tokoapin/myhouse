@@ -117,10 +117,12 @@
             <p class="help-block">請上傳十張商品圖片</p>
         </div>
         <ul class="thumbnails">
-            <?php if ($mode == 'edit'): ?>
+            <?php if ($mode == 'edit' and isset($item['image_list'])): ?>
+            <?php foreach ($item['image_list'] as $row): ?>
             <li class="span2" style="text-align:center">
-                <a href="#" class="thumbnail"><img src="/files/get/{{file_name}}/160/120" alt=""></a><input type="hidden" name="file_list[]" value="{{file_id}}"><button type="button" data-id="{{file_id}}" class="btn btn-danger delete_file">刪除檔案</button>
+                <a href="#" class="thumbnail"><img src="/files/get/<?php echo $row['name']?>/160/120" alt=""></a><input type="hidden" name="file_list[]" value="<?php echo $row['id']?>"><button type="button" data-id="<?php echo $row['id']?>" class="btn btn-danger delete_file">刪除檔案</button>
             </li>
+            <?php endforeach;?>
             <?php endif;?>
         </ul>
     </div>

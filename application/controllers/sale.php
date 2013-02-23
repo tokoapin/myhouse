@@ -5,7 +5,7 @@ class Sale extends MY_Controller
     public function __construct()
     {
         parent::__construct();
-        $this->load->library(array('lib_sale'));
+        $this->load->library(array('lib_sale', 'lib_files'));
         $this->template->add_js('/assets/js/libs/jquery/jquery.twzipcode-1.4.1.js', true);
     }
 
@@ -34,18 +34,22 @@ class Sale extends MY_Controller
             redirect('sale/lists');
         }
 
-        $item = $this->lib_sale->select('*')->where('uid', $this->db->escape_str($uid))->items()->row_array();
+        $row = $this->lib_sale->select('*')->where('uid', $this->db->escape_str($uid))->items()->row_array();
+        if (isset($row['file_list']) and !empty($row['file_list'])) {
+            $files = $this->lib_files->where('id', explode(',', $row['file_list']))->order_by_field('id', $row['file_list'])->items()->result_array();
+            $row['image_list'] = $files;
+        }
 
-        if (empty($item)) {
+        if (empty($row)) {
             redirect('sale/lists');
         }
 
-        if (!empty($item['facility_type'])) {
-            $item['facility_type'] = explode(',', $item['facility_type']);
+        if (!empty($row['facility_type'])) {
+            $row['facility_type'] = explode(',', $row['facility_type']);
         }
 
         $data = array(
-            'item' => $item,
+            'item' => $row,
             'mode' => 'edit'
         );
 
@@ -69,10 +73,13 @@ class Sale extends MY_Controller
     {
         $mode = $this->input->post('mode', true);
         $facility_type = $this->input->post('facility_type', true);
+        $file_list = $this->input->post('file_list', true);
 
         if ( ! is_array($facility_type)) {
             $facility_type = array();
         }
+
+        $file_list = (is_array($file_list) and !empty($file_list)) ? implode(',', $file_list) : '';
 
         $data = array(
             'type' => $this->input->post('type', true),
@@ -112,7 +119,8 @@ class Sale extends MY_Controller
             'agent_type' => $this->input->post('agent_type', true),
             'agent_name' => $this->input->post('agent_name', true),
             'agent_phone' => $this->input->post('agent_phone', true),
-            'description' => $this->input->post('description', true)
+            'description' => $this->input->post('description', true),
+            'file_list' => $file_list
         );
 
         switch ($mode) {
