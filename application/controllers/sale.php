@@ -17,7 +17,10 @@ class Sale extends MY_Controller
 
     public function add()
     {
-        $data = array('mode' => 'add');
+        $data = array(
+            'mode' => 'add'
+        );
+        $this->template->add_css('/assets/js/libs/jquery/uploadify/uploadify.css');
         $this->template->add_js('/assets/js/sale.js', true);
         $this->template->add_js('/assets/js/libs/jquery/uploadify/swfobject.js', true);
         $this->template->add_js('/assets/js/libs/jquery/uploadify/jquery.uploadify.v2.1.4.js', true);
@@ -46,6 +49,7 @@ class Sale extends MY_Controller
             'mode' => 'edit'
         );
 
+        $this->template->add_css('/assets/js/libs/jquery/uploadify/uploadify.css');
         $this->template->add_js('/assets/js/sale.js', true);
         $this->template->add_js('/assets/js/libs/jquery/uploadify/swfobject.js', true);
         $this->template->add_js('/assets/js/libs/jquery/uploadify/jquery.uploadify.v2.1.4.js', true);

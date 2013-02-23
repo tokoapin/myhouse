@@ -34,11 +34,11 @@ class Lib_files
     public function upload($data = array())
     {
         $data = array(
-            'name' => (string) $data['name'],
-            'ext' => (string) strtolower($data['ext']),
+            'name' => (string) $data['file_name'],
+            'ext' => (string) strtolower($data['file_ext']),
             'path' => (string) $this->_upload_path,
-            'size' => (string) $data['size'],
-            'type' => (string) $data['type'],
+            'size' => (string) $data['file_size'],
+            'type' => (string) $data['file_type'],
             'orig_name' => (string) $data['orig_name'],
             'raw_name' => (string) $data['raw_name'],
             'image_height' => (int) $data['image_height'],

@@ -1,2 +1,8 @@
 application/config/database.php
 assets/coffee
+uploads/thumbs/*.jpg
+uploads/thumbs/*.png
+uploads/thumbs/*.gif
+uploads/*.jpg
+uploads/*.png
+uploads/*.gif

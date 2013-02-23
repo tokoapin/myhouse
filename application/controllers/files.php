@@ -62,7 +62,7 @@ class Files extends MY_Controller
             return;
         }
 
-        $filename = $image['raw_name'] . $image['ext'];
+        $filename = $image['raw_name'] . $image['file_ext'];
         $filepath = $this->_upload_path . $filename;
 
         $size = $this->config->item('image_size');
