@@ -44,33 +44,37 @@
 <script id="manage-template" type="text/x-handlebars-template">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="myModalLabel">{{title}}</h3>
+        <h3>{{title}}</h3>
     </div>
     <div class="modal-body">
         <p>
             <a class="btn btn-primary" href="/sale/edit/{{uid}}">修改物件</a>
-            <a class="btn btn-primary" href="/sale/edit/{{uid}}">預約/續約刊登</a>
-            <a class="btn btn-primary" href="/sale/edit/{{uid}}">成交結束物件</a>
+            <button class="btn btn-primary reservation">預約/續約刊登</button>
+            <button class="btn btn-primary deal">成交結束物件</button>
             <a class="btn btn-primary" href="/sale/edit/{{uid}}">開啟廣告</a>
             <a class="btn btn-primary" href="/sale/edit/{{uid}}">關閉廣告</a>
         </p>
     </div>
-    <div class="modal-header">
-        <h3 id="myModalLabel">成交結束物件</h3>
+    <div id="deal" class="hide">
+        <div class="modal-header">
+            <h3>成交結束物件</h3>
+        </div>
+        <div class="modal-body">
+            <p>恭喜你物件已出售/出租</p>
+            <p>成交價格為：&nbsp;<input type="text" class="input-small" name="sale_price" value="{{sale_price}}" placeholder="成交價格">&nbsp;萬(請填寫，以便供後續買賣房屋者參考，謝謝您)</p>
+            <p><button type="submit" class="btn">確認送出</button></p>
+        </div>
     </div>
-    <div class="modal-body">
-        <p>恭喜你物件已出售/出租</p>
-        <p>成交價格為：&nbsp;<input type="text" class="input-small" name="sale_price" value="{{sale_price}}" placeholder="成交價格">&nbsp;萬(請填寫，以便供後續買賣房屋者參考，謝謝您)</p>
-        <p><button type="submit" class="btn">確認送出</button></p>
-    </div>
-    <div class="modal-header">
-        <h3 id="myModalLabel">預約/續約刊登</h3>
-    </div>
-    <div class="modal-body">
-        <p><input type="radio" name="is_submit" value="1" {{#if is_submit}}checked="checked"{{/if}}>直接刊登&nbsp;<input type="radio" name="is_submit" value="0" {{#unless is_submit}}checked="checked"{{/unless}}>預約刊登時間: <input type="text" name="submit_date" value="{{submit_date}}" id="submit_date" /></p>
-        <p>{{&agent_type}}&nbsp;<input type="text" class="input-small" name="agent_name" value="{{agent_name}}" />&nbsp;先生/小姐&nbsp;<input name="is_owner" type="checkbox" value="1" {{#if is_owner}}checked="checked"{{/if}}> 屋主聲名仲介誤擾</p>
-        <p>聯絡電話:<input type="text" name="agent_phone" value="{{agent_phone}}" placeholder="聯絡電話"></p>
-        <p><button type="submit" class="btn">確認送出</button></p>
+    <div id="reservation" class="hide">
+        <div class="modal-header">
+            <h3>預約/續約刊登</h3>
+        </div>
+        <div class="modal-body">
+            <p><input type="radio" name="is_submit" value="1" {{#if is_submit}}checked="checked"{{/if}}>直接刊登&nbsp;<input type="radio" name="is_submit" value="0" {{#unless is_submit}}checked="checked"{{/unless}}>預約刊登時間: <input type="text" name="submit_date" value="{{submit_date}}" id="submit_date" /></p>
+            <p>{{&agent_type}}&nbsp;<input type="text" class="input-small" name="agent_name" value="{{agent_name}}" />&nbsp;先生/小姐&nbsp;<input name="is_owner" type="checkbox" value="1" {{#if is_owner}}checked="checked"{{/if}}> 屋主聲名仲介誤擾</p>
+            <p>聯絡電話:<input type="text" name="agent_phone" value="{{agent_phone}}" placeholder="聯絡電話"></p>
+            <p><button type="submit" class="btn">確認送出</button></p>
+        </div>
     </div>
     <div class="modal-footer">
         <a class="btn btn-danger" href="/sale/edit/{{uid}}">刪除廣告</a><button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>

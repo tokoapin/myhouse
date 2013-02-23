@@ -35,5 +35,11 @@ $(function() {
                 }
             }
         });
+    }).on('click', '.deal', function(e) {
+        $("#reservation, #deal").hide();
+        $("#deal").show();
+    }).on('click', '.reservation', function(e) {
+        $("#reservation, #deal").hide();
+        $("#reservation").show();
     })
 });
