@@ -17,4 +17,22 @@ $(function() {
     $("#submit_date").datepicker({
         dateFormat: "yy-mm-dd"
     });
+
+    $(document).on('click', '.manage_house', function(e){
+        var source   = $("#manage-template").html();
+        var template = Handlebars.compile(source);
+        var uid = $(this).data('uid');
+        $.ajax({
+            url: '/sale/item/' + uid,
+            dataType: 'json',
+            type: 'GET',
+            success: function(response) {
+                if (response.success_text) {
+                    response.item.is_submit = +response.item.is_submit;
+                    var html = template(response.item);
+                    $('#manage_house').html(html);
+                }
+            }
+        });
+    })
 });

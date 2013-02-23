@@ -28,6 +28,23 @@ class Sale extends MY_Controller
         $this->template->render('sale/form', $data);
     }
 
+    public function item($uid = '')
+    {
+        if (!isset($uid) and empty($uid)) {
+            exit();
+        }
+
+        $row = $this->lib_sale->select('*')->where('uid', $this->db->escape_str($uid))->items()->row_array();
+        $row['agent_type'] = form_dropdown('agent_type', $this->_agent_type, (isset($row['agent_type'])) ? $row['agent_type'] : '', 'class="input-small"');
+        if ($this->input->is_ajax_request()) {
+            $data = array(
+                "success_text" => "ok",
+                "item" => $row
+            );
+            echo json_encode($data);
+        }
+    }
+
     public function edit($uid = '')
     {
         if (!isset($uid) and empty($uid)) {
@@ -66,6 +83,8 @@ class Sale extends MY_Controller
         $data = array(
             'rows' => $this->lib_sale->select('*')->where('user_id', $this->session->userdata('user_id'))->order_by('add_time', 'desc')->items()->result_array(),
         );
+
+        $this->template->add_js('/assets/js/sale.js', true);
         $this->template->render('sale/lists', $data);
     }
 

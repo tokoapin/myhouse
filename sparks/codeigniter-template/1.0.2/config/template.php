@@ -22,7 +22,8 @@ $config['template_css'] = array(
 $config['template_js'] = array(
     '//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js' => false,
     '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js' => false,
-    '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js' => false
+    '//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.0/js/bootstrap.min.js' => false,
+    'https://raw.github.com/wycats/handlebars.js/1.0.0-rc.3/dist/handlebars.js' => false
 );
 
 /**
