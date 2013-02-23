@@ -255,12 +255,6 @@ class Template
     private function script_tag($src = NULL)
     {
         if (isset($src) and !empty($src)) {
-            //hendry add 
-            $CI =& get_instance();
-            if ( strpos($src, '://') == FALSE) {
-                $src = $CI->config->slash_item('base_url').$src.'" ';
-            }
-            //hendry end
             return '<script src="' . $src . '" type="text/javascript"></script>';
         }
 

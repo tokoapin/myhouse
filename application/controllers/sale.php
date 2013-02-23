@@ -45,9 +45,9 @@ class Sale extends MY_Controller
         }
     }
 
-    public function edit($uid = '')
+    public function edit($uid = null)
     {
-        if (!isset($uid) and empty($uid)) {
+        if (!isset($uid) or empty($uid)) {
             redirect('sale/lists');
         }
 

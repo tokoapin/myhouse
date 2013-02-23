@@ -48,11 +48,11 @@
     </div>
     <div class="modal-body">
         <p>
-            <a class="btn btn-primary" href="/sale/edit/{{uuid}}">修改物件</a>
-            <a class="btn btn-primary" href="/sale/edit/{{uuid}}">預約/續約刊登</a>
-            <a class="btn btn-primary" href="/sale/edit/{{uuid}}">成交結束物件</a>
-            <a class="btn btn-primary" href="/sale/edit/{{uuid}}">開啟廣告</a>
-            <a class="btn btn-primary" href="/sale/edit/{{uuid}}">關閉廣告</a>
+            <a class="btn btn-primary" href="/sale/edit/{{uid}}">修改物件</a>
+            <a class="btn btn-primary" href="/sale/edit/{{uid}}">預約/續約刊登</a>
+            <a class="btn btn-primary" href="/sale/edit/{{uid}}">成交結束物件</a>
+            <a class="btn btn-primary" href="/sale/edit/{{uid}}">開啟廣告</a>
+            <a class="btn btn-primary" href="/sale/edit/{{uid}}">關閉廣告</a>
         </p>
     </div>
     <div class="modal-header">
