@@ -1,14 +1,22 @@
+
+<!--
 <!doctype html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 	<title><?=$title ?></title>
+
 	<link type="text/css" href="assets/css/jquery-ui-themes/blitzer/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
-	<script type="text/javascript" src="assets/js/jQuery/jquery-1.9.1.js"></script>
+
+<script type="text/javascript" src="assets/js/jQuery/jquery-1.9.1.js"></script>
 	<script type="text/javascript" src="assets/js/jQuery/jquery-ui-1.10.0.js"></script>
-	<script type="text/javascript" src="assets/js/libs/jquery-validation-1.11/jquery.validate.js"></script>
+
+	
 </head>
 <body>
+-->	
+<!--	<script type="text/javascript" src="assets/js/libs/jquery-validation-1.11/jquery.validate.js"></script>-->
+	
 	<h1 id="pageID"><?=$title ?></h1>
 
 	<?php log_message("debug","TESTING TESTING"); ?>
