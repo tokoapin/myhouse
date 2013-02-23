@@ -19,6 +19,9 @@ class Sale extends MY_Controller
     {
         $data = array('mode' => 'add');
         $this->template->add_js('/assets/js/sale.js', true);
+        $this->template->add_js('/assets/js/libs/jquery/uploadify/swfobject.js', true);
+        $this->template->add_js('/assets/js/libs/jquery/uploadify/jquery.uploadify.v2.1.4.js', true);
+        $this->template->add_js('/assets/js/file_upload.js', true);
         $this->template->render('sale/form', $data);
     }
 
@@ -44,6 +47,9 @@ class Sale extends MY_Controller
         );
 
         $this->template->add_js('/assets/js/sale.js', true);
+        $this->template->add_js('/assets/js/libs/jquery/uploadify/swfobject.js', true);
+        $this->template->add_js('/assets/js/libs/jquery/uploadify/jquery.uploadify.v2.1.4.js', true);
+        $this->template->add_js('/assets/js/file_upload.js', true);
         $this->template->render('sale/form', $data);
     }
 

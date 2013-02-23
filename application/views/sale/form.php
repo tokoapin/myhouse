@@ -111,6 +111,20 @@
         </div>
     </div>
     <div class="control-group">
+        <label class="control-label">圖片上傳:</label>
+        <div class="controls">
+            <p><input id="file_upload" type="file" name="userfile" data-type="sale" /></p>
+            <p class="help-block">請上傳十張商品圖片</p>
+        </div>
+        <ul class="thumbnails">
+            <?php if ($mode == 'edit'): ?>
+            <li class="span2" style="text-align:center">
+                <a href="#" class="thumbnail"><img src="/files/get/{{file_name}}/160/120" alt=""></a><input type="hidden" name="file_list[]" value="{{file_id}}"><button type="button" data-id="{{file_id}}" class="btn btn-danger delete_file">刪除檔案</button>
+            </li>
+            <?php endif;?>
+        </ul>
+    </div>
+    <div class="control-group">
         <div class="controls">
             <?php if ($mode == 'add'): ?>
             <label class="checkbox">
