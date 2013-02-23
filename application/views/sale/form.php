@@ -95,7 +95,7 @@
     <div class="control-group">
         <label class="control-label" for="inputPassword">聯絡人</label>
         <div class="controls">
-            <?php echo form_dropdown('agent_type', $_agent_type, (isset($item['agent_type'])) ? $item['agent_type'] : '', 'class="input-small"');?>&nbsp;<input type="text" name="agent_name" value="<?php echo (isset($item['agent_name'])) ? $item['agent_name'] : ''; ?>" />先生/小姐&nbsp;<input name="is_owner" type="checkbox" <?php echo (isset($item['is_owner']) and $item['is_owner'] == '1') ? 'checked="checked"' : ''; ?>> 屋主聲名仲介誤擾
+            <?php echo form_dropdown('agent_type', $_agent_type, (isset($item['agent_type'])) ? $item['agent_type'] : '', 'class="input-small"');?>&nbsp;<input type="text" name="agent_name" value="<?php echo (isset($item['agent_name'])) ? $item['agent_name'] : ''; ?>" />先生/小姐&nbsp;<input name="is_owner" type="checkbox" value="1" <?php echo (isset($item['is_owner']) and $item['is_owner'] == '1') ? 'checked="checked"' : ''; ?>> 屋主聲名仲介誤擾
         </div>
     </div>
     <div class="control-group">

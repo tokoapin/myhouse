@@ -68,7 +68,7 @@
     </div>
     <div class="modal-body">
         <p><input type="radio" name="is_submit" value="1" {{#if is_submit}}checked="checked"{{/if}}>直接刊登&nbsp;<input type="radio" name="is_submit" value="0" {{#unless is_submit}}checked="checked"{{/unless}}>預約刊登時間: <input type="text" name="submit_date" value="{{submit_date}}" id="submit_date" /></p>
-        <p>{{&agent_type}}&nbsp;<input type="text" class="input-small" name="agent_name" value="{{agent_name}}" />&nbsp;先生/小姐&nbsp;<input name="is_owner" type="checkbox" <?php echo (isset($row['is_owner']) and $row['is_owner'] == '1') ? 'checked="checked"' : ''; ?>> 屋主聲名仲介誤擾</p>
+        <p>{{&agent_type}}&nbsp;<input type="text" class="input-small" name="agent_name" value="{{agent_name}}" />&nbsp;先生/小姐&nbsp;<input name="is_owner" type="checkbox" value="1" {{#if is_owner}}checked="checked"{{/if}}> 屋主聲名仲介誤擾</p>
         <p>聯絡電話:<input type="text" name="agent_phone" value="{{agent_phone}}" placeholder="聯絡電話"></p>
         <p><button type="submit" class="btn">確認送出</button></p>
     </div>

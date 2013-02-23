@@ -29,6 +29,7 @@ $(function() {
             success: function(response) {
                 if (response.success_text) {
                     response.item.is_submit = +response.item.is_submit;
+                    response.item.is_owner = +response.item.is_owner;
                     var html = template(response.item);
                     $('#manage_house').html(html);
                 }
