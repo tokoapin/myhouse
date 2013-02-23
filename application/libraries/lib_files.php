@@ -13,6 +13,7 @@ class Lib_files
     public function __construct()
     {
         $this->_ci =& get_instance();
+        $this->_ci->load->library('session');
         $this->_ci->load->model('files_model');
     }
 
@@ -35,6 +36,7 @@ class Lib_files
     {
         $data = array(
             'name' => (string) $data['file_name'],
+            'user_id' => (int) $this->_ci->session->userdata('user_id'),
             'ext' => (string) strtolower($data['file_ext']),
             'path' => (string) $this->_upload_path,
             'size' => (string) $data['file_size'],
