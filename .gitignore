@@ -6,3 +6,4 @@ uploads/thumbs/*.gif
 uploads/*.jpg
 uploads/*.png
 uploads/*.gif
+Makefile
