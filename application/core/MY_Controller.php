@@ -75,9 +75,8 @@ class MY_Controller extends CI_Controller
             '其它'
         );
         $this->_house_status = array(
+            '關閉中',
             '開啟中',
-            '未開啟',
-            '暫時關閉',
             '已成交'
         );
         $this->_decorating_type = array(

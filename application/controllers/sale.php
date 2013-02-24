@@ -28,6 +28,25 @@ class Sale extends MY_Controller
         $this->template->render('sale/form', $data);
     }
 
+    public function setting($uid = '')
+    {
+        if (!isset($uid) and empty($uid)) {
+            exit();
+        }
+
+        $row = $this->lib_sale->select('*')->where('uid', $this->db->escape_str($uid))->items()->row_array();
+        if ($this->input->is_ajax_request()) {
+            $key = $this->input->post('key', true);
+            $value = $this->input->post('value', true);
+            $data[$key] = $value;
+            $this->lib_sale->update($row['id'], $data);
+            $data = array(
+                "success_text" => "ok"
+            );
+            echo json_encode($data);
+        }
+    }
+
     public function item($uid = '')
     {
         if (!isset($uid) and empty($uid)) {

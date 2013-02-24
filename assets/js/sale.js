@@ -35,11 +35,35 @@ $(function() {
                 }
             }
         });
-    }).on('click', '.deal', function(e) {
-        $("#reservation, #deal").hide();
-        $("#deal").show();
-    }).on('click', '.reservation', function(e) {
-        $("#reservation, #deal").hide();
-        $("#reservation").show();
-    })
+    }).on('click', '.setting', function(e) {
+        var mode = $(this).data('mode') || '';
+        switch (mode) {
+            case 'reservation':
+            case 'deal':
+                $("#reservation, #deal").hide();
+                $("#" + mode).show();
+                break;
+            case 'open':
+            case 'close':
+                var uid = $(this).data('uid') || '';
+                var key = $(this).data('key') || '';
+                var value = $(this).data('value') || '';
+                $.ajax({
+                    url: '/sale/setting/' + uid,
+                    dataType: 'json',
+                    data: {
+                        'key': key,
+                        'value': value
+                    },
+                    type: 'POST',
+                    success: function(response) {
+                        if (response.success_text) {
+                            alert('設定完成，重新整理網頁');
+                            window.location.reload();
+                        }
+                    }
+                });
+                break;
+        }
+    });
 });

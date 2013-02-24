@@ -49,10 +49,10 @@
     <div class="modal-body">
         <p>
             <a class="btn btn-primary" href="/sale/edit/{{uid}}">修改物件</a>
-            <button class="btn btn-primary reservation">預約/續約刊登</button>
-            <button class="btn btn-primary deal">成交結束物件</button>
-            <a class="btn btn-primary" href="/sale/edit/{{uid}}">開啟廣告</a>
-            <a class="btn btn-primary" href="/sale/edit/{{uid}}">關閉廣告</a>
+            <button class="btn btn-primary setting" data-mode="reservation" data-uid="{{uid}}">預約/續約刊登</button>
+            <button class="btn btn-primary setting" data-mode="deal" data-uid="{{uid}}">成交結束物件</button>
+            <button class="btn btn-primary setting" data-mode="close" data-uid="{{uid}}" data-key="status" data-value="1">開啟廣告</button>
+            <button class="btn btn-primary setting" data-mode="open" data-uid="{{uid}}" data-key="status" data-value="0">關閉廣告</button>
         </p>
     </div>
     <div id="deal" class="hide">
