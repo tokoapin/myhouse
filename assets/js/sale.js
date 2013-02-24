@@ -49,21 +49,23 @@ $(function() {
                 $("#" + mode).show();
                 break;
             case 'update_reservation':
-                data = {
-                    'is_submit': form_info.is_submit || 0,
-                    'submit_date': form_info.submit_date,
-                    'is_owner': form_info.is_owner || 0,
-                    'agent_type': form_info.agent_type,
-                    'agent_name': form_info.agent_name,
-                    'agent_phone': form_info.agent_phone
-                };
-                message = '已預約/續約成功';
-                break;
             case 'update_deal':
-                data = {
-                    'sale_price': form_info.sale_price || 0
-                };
-                message = '設定已成交';
+                if (mode == 'update_reservation') {
+                    message = '已預約/續約成功';
+                } else if (mode == 'update_deal') {
+                    message = '設定已成交';
+                }
+                $.ajax({
+                    url: '/sale/setting/' + uid,
+                    dataType: 'json',
+                    data: $.extend(form_info, {mode: mode}),
+                    type: 'POST',
+                    success: function(response) {
+                        if (response.success_text) {
+                            alert(message);
+                        }
+                    }
+                });
                 break;
             case 'open':
             case 'close':
@@ -102,19 +104,6 @@ $(function() {
                     }
                 });
                 break;
-        }
-        if (mode == 'update_reservation' || mode == 'update_deal') {
-            $.ajax({
-                url: '/sale/setting/' + uid,
-                dataType: 'json',
-                data: $.extend(data, {mode: mode}),
-                type: 'POST',
-                success: function(response) {
-                    if (response.success_text) {
-                        alert(message);
-                    }
-                }
-            });
         }
     }).on('shown', '#manage_house', function () {
         $("#submit_date").datepicker({
