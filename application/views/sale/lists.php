@@ -42,6 +42,7 @@
 </table>
 <div id="manage_house" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"></div>
 <script id="manage-template" type="text/x-handlebars-template">
+<form action="#" method="post" id="setting_form">
     <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
         <h3>{{title}}</h3>
@@ -62,7 +63,7 @@
         <div class="modal-body">
             <p>恭喜你物件已出售/出租</p>
             <p>成交價格為：&nbsp;<input type="text" class="input-small" name="sale_price" value="{{sale_price}}" placeholder="成交價格">&nbsp;萬(請填寫，以便供後續買賣房屋者參考，謝謝您)</p>
-            <p><button type="submit" class="btn">確認送出</button></p>
+            <p><button class="btn btn-primary setting" data-mode="update_deal" data-uid="{{uid}}">確認送出</button></p>
         </div>
     </div>
     <div id="reservation" class="hide">
@@ -73,10 +74,12 @@
             <p><input type="radio" name="is_submit" value="1" {{#if is_submit}}checked="checked"{{/if}}>直接刊登&nbsp;<input type="radio" name="is_submit" value="0" {{#unless is_submit}}checked="checked"{{/unless}}>預約刊登時間: <input type="text" name="submit_date" value="{{submit_date}}" id="submit_date" /></p>
             <p>{{&agent_type}}&nbsp;<input type="text" class="input-small" name="agent_name" value="{{agent_name}}" />&nbsp;先生/小姐&nbsp;<input name="is_owner" type="checkbox" value="1" {{#if is_owner}}checked="checked"{{/if}}> 屋主聲名仲介誤擾</p>
             <p>聯絡電話:<input type="text" name="agent_phone" value="{{agent_phone}}" placeholder="聯絡電話"></p>
-            <p><button type="submit" class="btn">確認送出</button></p>
+            <p><button class="btn btn-primary setting" data-mode="update_reservation" data-uid="{{uid}}">確認送出</button></p>
         </div>
     </div>
     <div class="modal-footer">
         <button class="btn btn-danger setting" data-mode="delete" data-uid="{{uid}}">刪除廣告</button><button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </div>
+    <input type="hidden" name="uid" value="{{uid}}" />
+</form>
 </script>

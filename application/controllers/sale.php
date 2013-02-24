@@ -45,9 +45,33 @@ class Sale extends MY_Controller
             if ($row['user_id'] != $this->session->userdata('user_id')) {
                 exit();
             }
-            $key = $this->input->post('key', true);
-            $value = $this->input->post('value', true);
-            $data[$key] = $value;
+            $mode = $this->input->post('mode', true);
+            switch ($mode) {
+                case 'open':
+                case 'close':
+                    $key = $this->input->post('key', true);
+                    $value = $this->input->post('value', true);
+                    $data[$key] = $value;
+                    break;
+                break;
+                case 'update_reservation':
+                    $data = array(
+                        'is_submit' => $this->input->post('is_submit', true),
+                        'submit_date' => $this->input->post('submit_date', true),
+                        'is_owner' => $this->input->post('is_owner', true),
+                        'agent_type' => $this->input->post('agent_type', true),
+                        'agent_name' => $this->input->post('agent_name', true),
+                        'agent_phone' => $this->input->post('agent_phone', true)
+                    );
+                    break;
+                case 'update_deal';
+                    $data = array(
+                        'sale_price' => $this->input->post('sale_price', true),
+                        'status' => 2
+                    );
+                    break;
+            }
+
             $this->lib_sale->update($row['id'], $data);
             $data = array(
                 "success_text" => "ok"
@@ -144,6 +168,7 @@ class Sale extends MY_Controller
             'rows' => $this->lib_sale->select('*')->where('user_id', $this->session->userdata('user_id'))->order_by('add_time', 'desc')->items()->result_array(),
         );
 
+        $this->template->add_js('/assets/js/libs/jquery/jquery.serialize.js', true);
         $this->template->add_js('/assets/js/sale.js', true);
         $this->template->render('sale/lists', $data);
     }

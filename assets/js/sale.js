@@ -14,6 +14,7 @@ $(function() {
             return $.getUrlVars()[name];
         }
     });
+
     $("#submit_date").datepicker({
         dateFormat: "yy-mm-dd"
     });
@@ -36,16 +37,36 @@ $(function() {
             }
         });
     }).on('click', '.setting', function(e) {
+        e.preventDefault();
         var mode = $(this).data('mode') || '';
+        var form_info = $("#setting_form").serializeObject();
+        var uid = $(this).data('uid') || '';
+        var data = {}, message = '';
         switch (mode) {
             case 'reservation':
             case 'deal':
                 $("#reservation, #deal").hide();
                 $("#" + mode).show();
                 break;
+            case 'update_reservation':
+                data = {
+                    'is_submit': form_info.is_submit || 0,
+                    'submit_date': form_info.submit_date,
+                    'is_owner': form_info.is_owner || 0,
+                    'agent_type': form_info.agent_type,
+                    'agent_name': form_info.agent_name,
+                    'agent_phone': form_info.agent_phone
+                };
+                message = '已預約/續約成功';
+                break;
+            case 'update_deal':
+                data = {
+                    'sale_price': form_info.sale_price || 0
+                };
+                message = '設定已成交';
+                break;
             case 'open':
             case 'close':
-                var uid = $(this).data('uid') || '';
                 var key = $(this).data('key') || '';
                 var value = $(this).data('value') || '';
                 $.ajax({
@@ -53,7 +74,8 @@ $(function() {
                     dataType: 'json',
                     data: {
                         'key': key,
-                        'value': value
+                        'value': value,
+                        'mode': mode
                     },
                     type: 'POST',
                     success: function(response) {
@@ -65,7 +87,6 @@ $(function() {
                 });
                 break;
             case 'delete':
-                var uid = $(this).data('uid') || '';
                 if (!confirm("確定要刪除此銷售物件?")) {
                     return true;
                 }
@@ -82,5 +103,22 @@ $(function() {
                 });
                 break;
         }
+        if (mode == 'update_reservation' || mode == 'update_deal') {
+            $.ajax({
+                url: '/sale/setting/' + uid,
+                dataType: 'json',
+                data: $.extend(data, {mode: mode}),
+                type: 'POST',
+                success: function(response) {
+                    if (response.success_text) {
+                        alert(message);
+                    }
+                }
+            });
+        }
+    }).on('shown', '#manage_house', function () {
+        $("#submit_date").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
     });
 });
