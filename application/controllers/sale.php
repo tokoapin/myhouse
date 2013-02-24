@@ -35,11 +35,52 @@ class Sale extends MY_Controller
         }
 
         $row = $this->lib_sale->select('*')->where('uid', $this->db->escape_str($uid))->items()->row_array();
+
+        if (empty($row)) {
+            exit();
+        }
+
         if ($this->input->is_ajax_request()) {
+            // check permission
+            if ($row['user_id'] != $this->session->userdata('user_id')) {
+                exit();
+            }
             $key = $this->input->post('key', true);
             $value = $this->input->post('value', true);
             $data[$key] = $value;
             $this->lib_sale->update($row['id'], $data);
+            $data = array(
+                "success_text" => "ok"
+            );
+            echo json_encode($data);
+        }
+    }
+
+    public function delete($uid = '')
+    {
+        if (!isset($uid) and empty($uid)) {
+            exit();
+        }
+
+        $row = $this->lib_sale->select('*')->where('uid', $this->db->escape_str($uid))->items()->row_array();
+
+        if (empty($row)) {
+            exit();
+        }
+
+        if ($this->input->is_ajax_request()) {
+            // check permission
+            if ($row['user_id'] != $this->session->userdata('user_id')) {
+                exit();
+            }
+
+            // delete all image files
+            if (!empty($row['file_list'])) {
+                $file_list = explode(',', $row['file_list']);
+                $this->lib_files->delete($file_list);
+            }
+
+            $this->lib_sale->delete($row['id']);
             $data = array(
                 "success_text" => "ok"
             );

@@ -9,7 +9,6 @@ class Files_model extends MY_Model
 {
     protected $_category_table = "files_category";
     protected $_category_table_key = "id";
-    protected $_upload_path = "./upload/";
 
     public function __construct()
     {
@@ -45,7 +44,7 @@ class Files_model extends MY_Model
             return false;
         }
 
-        $path = $this->_upload_path . $filename;
+        $path = UPLOAD_PATH . $filename;
 
         if (file_exists($path)) {
             @unlink($path);

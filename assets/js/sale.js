@@ -64,6 +64,23 @@ $(function() {
                     }
                 });
                 break;
+            case 'delete':
+                var uid = $(this).data('uid') || '';
+                if (!confirm("確定要刪除此銷售物件?")) {
+                    return true;
+                }
+                $.ajax({
+                    url: '/sale/delete/' + uid,
+                    dataType: 'json',
+                    type: 'GET',
+                    success: function(response) {
+                        if (response.success_text) {
+                            alert('刪除完成，重新整理網頁');
+                            window.location.reload();
+                        }
+                    }
+                });
+                break;
         }
     });
 });

@@ -77,6 +77,6 @@
         </div>
     </div>
     <div class="modal-footer">
-        <a class="btn btn-danger" href="/sale/edit/{{uid}}">刪除廣告</a><button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
+        <button class="btn btn-danger setting" data-mode="delete" data-uid="{{uid}}">刪除廣告</button><button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
     </div>
 </script>

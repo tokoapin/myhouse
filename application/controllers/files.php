@@ -2,7 +2,6 @@
 
 class Files extends MY_Controller
 {
-    protected $_upload_path = "./uploads/";
     protected $_allowed_types = "*";
 
     public function __construct()
@@ -13,8 +12,8 @@ class Files extends MY_Controller
         $this->load->config('images');
 
         // check thumbs exist()
-        if (!is_dir($this->_upload_path . 'thumbs')) {
-            mkdir($this->_upload_path . 'thumbs');
+        if (!is_dir(UPLOAD_PATH . 'thumbs')) {
+            mkdir(UPLOAD_PATH . 'thumbs');
         }
     }
 
@@ -33,7 +32,7 @@ class Files extends MY_Controller
 
         $this->set_allow_types($allow_types);
         $config = array(
-            'upload_path' => $this->_upload_path,
+            'upload_path' => UPLOAD_PATH,
             'allowed_types' => $this->_allowed_types,
             'encrypt_name' => TRUE
         );
@@ -63,7 +62,7 @@ class Files extends MY_Controller
         }
 
         $filename = $image['raw_name'] . $image['file_ext'];
-        $filepath = $this->_upload_path . $filename;
+        $filepath = UPLOAD_PATH . $filename;
 
         $size = $this->config->item('image_size');
         if (isset($size[$type])) {
@@ -71,7 +70,7 @@ class Files extends MY_Controller
                 $image_array = array();
                 $image_array = explode('x', $row);
                 $image_array[] = $filename;
-                $thumbpath = $this->_upload_path . 'thumbs/' . implode('_', $image_array);
+                $thumbpath = UPLOAD_PATH . 'thumbs/' . implode('_', $image_array);
                 $thumb_config = array(
                     'thumb_marker' => '',
                     'create_thumb' => TRUE,
@@ -94,7 +93,7 @@ class Files extends MY_Controller
     public function get($filename = NULL, $width = NULL, $height = NULL)
     {
         // origin file path
-        $filepath = $this->_upload_path . $filename;
+        $filepath = UPLOAD_PATH . $filename;
 
         // output default image when file is not exist
         if (!$filename || !file_exists($filepath)) {
@@ -104,7 +103,7 @@ class Files extends MY_Controller
 
         if ($width && $height) {
             // thumbnail path
-            $thumbpath = $this->_upload_path . 'thumbs/' . join('_', array($width, $height, $filename));
+            $thumbpath = UPLOAD_PATH . 'thumbs/' . join('_', array($width, $height, $filename));
 
             // output exist image
             if (file_exists($thumbpath)) {
@@ -153,7 +152,7 @@ class Files extends MY_Controller
         $id = (int) $id;
         $row = $this->lib_files->get_file($id);
 
-        $path = $this->_upload_path . $row['name'];
+        $path = UPLOAD_PATH . $row['name'];
 
         if (!file_exists($path)) {
             header("Location:" . $this->config->site_url());
