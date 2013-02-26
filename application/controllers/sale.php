@@ -11,8 +11,7 @@ class Sale extends MY_Controller
 
     public function index()
     {
-        $data = array();
-        $this->template->render('sale/form', $data);
+        redirect('sale/lists');
     }
 
     public function add()
@@ -195,13 +194,13 @@ class Sale extends MY_Controller
             'attach_feet' => $this->input->post('attach_feet', true),
             'public_feet' => $this->input->post('public_feet', true),
             'land_feet' => $this->input->post('land_feet', true),
-            'room' => $this->input->post('room', true),
-            'parlor' => $this->input->post('parlor', true),
-            'bathroom' => $this->input->post('bathroom', true),
-            'balcony' => $this->input->post('balcony', true),
-            'floor' => $this->input->post('floor', true),
-            'total_floor' => $this->input->post('total_floor', true),
-            'age' => $this->input->post('age', true),
+            'room' => (int) $this->input->post('room', true),
+            'parlor' => (int) $this->input->post('parlor', true),
+            'bathroom' => (int) $this->input->post('bathroom', true),
+            'balcony' => (int) $this->input->post('balcony', true),
+            'floor' => (int) $this->input->post('floor', true),
+            'total_floor' => (int) $this->input->post('total_floor', true),
+            'age' => (int) $this->input->post('age', true),
             'car_num' => $this->input->post('car_num', true),
             'car_type' => $this->input->post('car_type', true),
             'house_title' => $this->input->post('house_title', true),
@@ -210,17 +209,17 @@ class Sale extends MY_Controller
             'zipcode' => $this->input->post('zipcode', true),
             'address' => $this->input->post('address', true),
             'number' => $this->input->post('number', true),
-            'hidden_number' => $this->input->post('hidden_number', true),
+            'hidden_number' => (int) $this->input->post('hidden_number', true),
             'manager_price' => $this->input->post('manager_price', true),
             'position' => $this->input->post('position', true),
-            'decorating_type' => $this->input->post('decorating_type', true),
+            'decorating_type' => (int) $this->input->post('decorating_type', true),
             'facility_type' => implode(',', $facility_type),
-            'is_lease' => $this->input->post('is_lease', true),
+            'is_lease' => (int) $this->input->post('is_lease', true),
             'traffic' => $this->input->post('traffic', true),
-            'is_submit' => $this->input->post('is_submit', true),
+            'is_submit' => (int) $this->input->post('is_submit', true),
             'submit_date' => $this->input->post('submit_date', true),
-            'is_owner' => $this->input->post('is_owner', true),
-            'agent_type' => $this->input->post('agent_type', true),
+            'is_owner' => (int) $this->input->post('is_owner', true),
+            'agent_type' => (int) $this->input->post('agent_type', true),
             'agent_name' => $this->input->post('agent_name', true),
             'agent_phone' => $this->input->post('agent_phone', true),
             'description' => $this->input->post('description', true),
