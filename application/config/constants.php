@@ -40,5 +40,8 @@ define('UPLOAD_PATH', './uploads/');
 define('SALE_HOUSE_TABLE', 'house');
 define('FILE_TABLE', 'files');
 
+//hendry
+define('AGENT_STORE_TABLE', 'agentstore');
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

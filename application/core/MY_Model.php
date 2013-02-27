@@ -121,6 +121,9 @@ class MY_Model extends CI_Model
 
         // set default time
         $this->_time = time();
+
+        //load library
+        $this->load->library("lib_dbtype");
     }
 
     /**
@@ -411,6 +414,9 @@ class MY_Model extends CI_Model
 
         // merge array data
         $data = array_merge($data, $external_data);
+
+        //hendry add, for STRICT MODE null casting
+        $data = $this->lib_dbtype->cast_fieldtypes($data,$this->tables['master']);
         // insert to database
         $this->db->insert($this->tables['master'], $data);
 
