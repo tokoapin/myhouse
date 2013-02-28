@@ -23,6 +23,18 @@ $(function() {
   $("#submit_date").datepicker({
     dateFormat: "yy-mm-dd"
   });
+  if ($("#sale_form").length > 0) {
+    $("#sale_form").validate({
+      rules: {
+        title: "required",
+        agree: "required"
+      },
+      messages: {
+        title: "Please enter title",
+        agree: "Please accept our policy"
+      }
+    });
+  }
   return $(document).on("click", ".manage_house", function(e) {
     var source, template, uid;
     source = $("#manage-template").html();
