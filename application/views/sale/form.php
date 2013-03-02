@@ -1,4 +1,4 @@
-<form class="form-horizontal" method="POST" action="<?php echo site_url('sale/save'); ?>">
+<form id="sale_form" class="form-horizontal" method="POST" action="<?php echo site_url('sale/save'); ?>">
     <div class="control-group">
         <label class="control-label">房屋型態</label>
         <div class="controls">
@@ -89,7 +89,7 @@
     <div class="control-group">
         <label class="control-label" for="inputPassword">刊登狀態</label>
         <div class="controls">
-            <input type="radio" name="is_submit" value="1" <?php echo ((isset($item['is_submit']) and $item['is_submit'] == '1') or $mode == 'add') ? 'checked="checked"' : ''; ?>>直接刊登&nbsp;<input type="radio" name="is_submit" value="0" <?php echo (isset($item['is_submit']) and $item['is_submit'] == '0') ? 'checked="checked"' : ''; ?>>預約刊登時間: <input type="text" name="submit_date" value="<?php echo (isset($item['submit_date'])) ? $item['submit_date'] : ''; ?>" id="submit_date" />
+            <input type="radio" name="is_submit" value="1" <?php echo ((isset($item['is_submit']) and $item['is_submit'] == '1') or $mode == 'add') ? 'checked="checked"' : ''; ?>>直接刊登&nbsp;<input type="radio" id="is_submit_no" name="is_submit" value="0" <?php echo (isset($item['is_submit']) and $item['is_submit'] == '0') ? 'checked="checked"' : ''; ?>>預約刊登時間: <input type="text" name="submit_date" value="<?php echo (isset($item['submit_date'])) ? $item['submit_date'] : ''; ?>" id="submit_date" />
         </div>
     </div>
     <div class="control-group">
@@ -130,7 +130,7 @@
         <div class="controls">
             <?php if ($mode == 'add'): ?>
             <label class="checkbox">
-                <input type="checkbox"> 我已詳細閱讀刊登規則
+                <input type="checkbox" name="agree"> 我已詳細閱讀刊登規則
             </label>
             <?php endif;?>
             <?php if ($mode == 'edit'): ?>
