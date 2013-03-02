@@ -121,6 +121,9 @@ class Sale extends MY_Controller
         $row = $this->lib_sale->select('*')->where('uid', $this->db->escape_str($uid))->items()->row_array();
         $row['agent_type'] = form_dropdown('agent_type', $this->_agent_type, (isset($row['agent_type'])) ? $row['agent_type'] : '', 'class="input-small"');
         if ($this->input->is_ajax_request()) {
+            foreach ($row as $k => $v) {
+                $row[$k] = htmlspecialchars($v);
+            }
             $data = array(
                 "success_text" => "ok",
                 "item" => $row
@@ -147,6 +150,10 @@ class Sale extends MY_Controller
 
         if (!empty($row['facility_type'])) {
             $row['facility_type'] = explode(',', $row['facility_type']);
+        }
+
+        foreach ($row as $k => $v) {
+            $row[$k] = htmlspecialchars($v);
         }
 
         $data = array(

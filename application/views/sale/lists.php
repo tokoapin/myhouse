@@ -27,7 +27,7 @@
         ?>
         <tr>
             <td><?php echo $row['uid'];?></td>
-            <td><?php echo $row['title'];?></td>
+            <td><?php echo htmlspecialchars($row['title']);?></td>
             <td><?php echo $row['view_count'];?></td>
             <td><?php echo $row['phone_count'];?> 通</td>
             <td><?php echo $row['favorite_count'];?></td>
