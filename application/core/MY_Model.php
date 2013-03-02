@@ -123,7 +123,7 @@ class MY_Model extends CI_Model
         $this->_time = time();
 
         //load library
-        $this->load->library("lib_dbtype");
+        //$this->load->library("lib_dbtype");
     }
 
     /**
@@ -416,7 +416,7 @@ class MY_Model extends CI_Model
         $data = array_merge($data, $external_data);
 
         //hendry add, for STRICT MODE null casting
-        $data = $this->lib_dbtype->cast_fieldtypes($data,$this->tables['master']);
+//      $data = $this->lib_dbtype->cast_fieldtypes($data,$this->tables['master']);
         // insert to database
         $this->db->insert($this->tables['master'], $data);
 
@@ -452,6 +452,36 @@ class MY_Model extends CI_Model
 
         return $result;
     }
+
+    /**
+     * Update Data API
+     *
+     * @param  mixed
+     * @param  array
+     * @return bool
+     */    
+    public function hupdate($id, $data = null)
+    {
+        if (is_array($id)) {
+            $this->db->where($id);  //for overwrite where condition, used when key is not default 'id'
+        } else {
+            $this->db->where($this->_key, $id);
+        }
+
+        $external_data = array(
+            'edit_time' => $this->_time
+        );
+
+        $data = array_merge($data, $external_data);
+
+        if (isset($data[$this->_key])) {
+            unset($data[$this->_key]);
+        }
+
+        $result = $this->db->set($data)->update($this->tables['master']);
+
+        return $result;
+    }    
 
     /**
      * Delete Data API

@@ -208,6 +208,4 @@ class Register extends MY_Controller {
 		echo json_encode($data);
 		exit(); //important, otherwise it will print any html in this page
 	}
-
-
 }

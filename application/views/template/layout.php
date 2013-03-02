@@ -24,6 +24,9 @@
             <ul class="nav">
                 <li <?php if($method == 'sale/lists'): ?>class="active"<?php endif; ?>><a href="/sale/lists">個人物件</a></li>
                 <li <?php if($method == 'sale/add'): ?>class="active"<?php endif; ?>><a href="/sale/add">新增物件</a></li>
+                <li <?php if($method == 'agentstore'): ?>class="active"<?php endif; ?>><a href="/agentstore">我的店舖</a></li>
+                <li <?php if($method == 'agentstore/add'): ?>class="active"<?php endif; ?>><a href="/agentstore/add">新增店舖</a></li>
+                <li <?php if($method == 'agentstore/edit'): ?>class="active"<?php endif; ?>><a href="/agentstore/edit">編輯店舖</a></li>
             </ul>
         </div>
     </div>

@@ -52,6 +52,8 @@ $autoload['packages'] = array();
 */
 
 $autoload['libraries'] = array('database');
+//hendry, for debug only, comment below line in production level
+$autoload['libraries'] = array_merge($autoload['libraries'], array('firephp','fb', 'hdebug'));
 
 /*
 | -------------------------------------------------------------------

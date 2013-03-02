@@ -35,7 +35,7 @@ class Lib_dbtype
                     ,'motto'        => 'varchar'
                     ,'area'         => 'varchar'
                     ,'service'      => 'varchar'
-                    ,'skill'        => 'int'
+                    ,'skill'        => 'varchar'
                     ,'aboutme'      => 'text'
                     ,'test'         => 'float'
                 );

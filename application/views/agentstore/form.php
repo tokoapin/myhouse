@@ -1,6 +1,6 @@
 <?php echo validation_errors(); ?>
 
-<form class="form-horizontal" method="POST" action="<?php echo site_url('agentstore/open'); ?>">
+<form id="form" class="form-horizontal" method="POST" action="<?php echo site_url('agentstore/save'); ?>">
 	<h3>經紀人員店舖</h3>
 	<div class="control-group">
 		<label class="control-label" for="motto">打招呼/工作態度/特質</label>
@@ -36,6 +36,8 @@
 	<div class="control-group">
 		<label class="control-label" ></label>
 		<button type="submit" class="btn">確認送出</button>
+        <input type="hidden" name="mode" value="">
+        <input type="hidden" name="iduser" value="">
 	</div>
 </form>
 
@@ -49,6 +51,32 @@ $(function () {
 		css: ["input-small", "hide", "hide", "hide"],
 		addressSel: ""
 	});
+});
+</script>
+
+<!-- fill the page -->
+<script>
+$(function () {
+    var mode = '<?php echo (isset($mode)) ? "$mode" : "add" ; ?>';
+    var jform = $("#form");
+
+    if(mode === "edit")
+    {
+        jform.find("[name=motto]").val('<?php echo (isset($item["motto"])) ? $item["motto"] : "" ; ?>');
+        jform.find("[name=service]").val('<?php echo (isset($item["service"])) ? $item["service"] : "" ; ?>');
+        jform.find("[name=skill]").val('<?php echo (isset($item["skill"])) ? $item["skill"] : "" ; ?>');
+        jform.find("[name=aboutme]").val('<?php echo (isset($item["aboutme"])) ? $item["aboutme"] : "" ; ?>');
+    }
+    else 
+    {
+        //debug add !
+        jform.find("[name=motto]").val("hello");
+        jform.find("[name=service]").val("hello1");
+        jform.find("[name=skill]").val("hello2");
+        jform.find("[name=aboutme]").val("hello3");
+    }
+    jform.find("[name=mode]").val(mode);
+    jform.find("[name=iduser]").val('<?php echo (isset($item["iduser"])) ? $item["iduser"] : "" ; ?>');
 });
 </script>
 

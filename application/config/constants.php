@@ -42,6 +42,9 @@ define('FILE_TABLE', 'files');
 
 //hendry
 define('AGENT_STORE_TABLE', 'agentstore');
+define('USER_TABLE', 'user');
+
+define('ADMIN_USER_ID', '1');
 
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */
