@@ -1,11 +1,5 @@
 <!doctype html>
-<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
-<!--[if lt IE 7]> <html class="no-js ie6 oldie" lang="en"> <![endif]-->
-<!--[if IE 7]>    <html class="no-js ie7 oldie" lang="en"> <![endif]-->
-<!--[if IE 8]>    <html class="no-js ie8 oldie" lang="en"> <![endif]-->
-<!-- Consider adding an manifest.appcache: h5bp.com/d/Offline -->
-<!--[if gt IE 8]><!--><html class="no-js" lang="<?php echo $lang; ?>"> <!--<![endif]-->
-
+<html lang="<?php echo $lang; ?>">
 <head>
 <meta charset="<?php echo $meta_charset; ?>">
 <title><?php echo $site_title; ?></title>
@@ -23,6 +17,7 @@
             <a class="brand" href="#">House</a>
             <ul class="nav">
                 <li <?php if($method == 'sale/lists'): ?>class="active"<?php endif; ?>><a href="/sale/lists">個人物件</a></li>
+                <li <?php if($method == 'sale/requirement'): ?>class="active"<?php endif; ?>><a href="/sale/requirement">購屋需求</a></li>
                 <li <?php if($method == 'sale/add'): ?>class="active"<?php endif; ?>><a href="/sale/add">新增物件</a></li>
             </ul>
         </div>
